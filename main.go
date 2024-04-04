@@ -48,7 +48,7 @@ func projectHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Receiver email address.
 		to := []string{
-			"xolsp123@gmail.com",
+			"michellelavins@gmail.com",
 		}
 
 		// smtp server configuration.
