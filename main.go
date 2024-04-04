@@ -14,7 +14,6 @@ type Page struct {
 	Body []byte
 }
 
-const port = ":8080"
 
 func customNotFound404(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
@@ -106,7 +105,17 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p Page) {
 	}
 }
 
+func envPortOr(port string) string {
+	// If `PORT` variable in environment exists, return it
+	if envPort := os.Getenv("PORT"); envPort != "" {
+		return ":" + envPort
+	}
+	// Otherwise, return the value of `port` variable from function argument
+	return ":" + port
+}
+
 func main() {
+	var port = envPortOr("3000")
 	arguments := os.Args
 	if len(arguments) > 1 {
 		fmt.Println("This program doesn't take arguments.")
